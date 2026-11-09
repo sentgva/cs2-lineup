@@ -1,0 +1,422 @@
+[
+  {
+    "grenadeId": "mirage-t-a-1",
+    "sourceId": "RE3G0sab7fyEbtRSTrFR",
+    "videoId": "dlWQ5CvI50M",
+    "updatedAt": "2023-11-04T01:43:41.311Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "mirage-t-a-2",
+    "sourceId": "YUBkdujznZcvEWRoWK7m",
+    "videoId": "O_s6kcSu5vk",
+    "updatedAt": "2023-09-02T06:33:18.214Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "mirage-t-b-1",
+    "sourceId": "9sRJaJlnF5CqL2Q7607o",
+    "videoId": "2ptE605BU8Q",
+    "updatedAt": "2023-10-17T01:17:52.901Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "mirage-t-b-2",
+    "sourceId": "ZQfLmfKNbPuPtE4DOsmf",
+    "videoId": "L92OxG7YMF0",
+    "updatedAt": "2023-09-07T19:35:20.094Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "mirage-t-mid-1",
+    "sourceId": "puRE3v3TSkfXDtJmpLKZ",
+    "videoId": "SttdsZCVA-Y",
+    "updatedAt": "2023-11-04T01:40:02.149Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "mirage-t-mid-2",
+    "sourceId": "WbPy2uvC1czhi9OcH19u",
+    "videoId": "iMOfoEAGR4Q",
+    "updatedAt": "2023-09-02T06:32:36.192Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "mirage-ct-a-1",
+    "sourceId": "c9TlyYcl9rHcMa4lSufy",
+    "videoId": "v3aOBDQr6JQ",
+    "updatedAt": "2023-09-14T00:25:01.388Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "mirage-ct-a-2",
+    "sourceId": "FLYtkenzasDxKAmnNpq3",
+    "videoId": "hfn94wZccLY",
+    "updatedAt": "2023-09-22T03:47:27.378Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "mirage-ct-b-1",
+    "sourceId": "coiLNQJV7i1gTlNm2C5O",
+    "videoId": "RzWQ49BbH-M",
+    "updatedAt": "2023-12-16T13:58:26.490Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "mirage-ct-b-2",
+    "sourceId": "MIQqpLmId5DE3tDewSst",
+    "videoId": "8y_MdBVi3L0",
+    "updatedAt": "2023-09-14T00:34:57.599Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "mirage-ct-mid-1",
+    "sourceId": "6YUeylrnWA2O76XOZTPN",
+    "videoId": "b5YIG7G9v1g",
+    "updatedAt": "2023-10-12T22:31:22.279Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "mirage-ct-mid-2",
+    "sourceId": "wcPRYn7mPTsJ5eqnWK7f",
+    "videoId": "Va65RYz6LWA",
+    "updatedAt": "2023-11-05T22:32:08.606Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "dust2-t-a-1",
+    "sourceId": "Zb7vMnN1sed12cMqhUjM",
+    "videoId": "9uZxJYgNHlE",
+    "updatedAt": "2024-04-30T21:51:21.061Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "dust2-t-a-2",
+    "sourceId": "qJiI9pdRI2rm9EXD4Wa8",
+    "videoId": "neAvfJFu2fY",
+    "updatedAt": "2023-09-05T01:58:55.423Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "dust2-t-b-1",
+    "sourceId": "x7wJ6Q4Cx50CAXHH58A6",
+    "videoId": "mAhgwjfDvJU",
+    "updatedAt": "2023-09-05T01:56:58.095Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "dust2-t-b-2",
+    "sourceId": "rlI2dJQ5mskaR8M5sLWL",
+    "videoId": "YzSYNoFqGJA",
+    "updatedAt": "2024-04-05T17:37:04.870Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "dust2-t-mid-1",
+    "sourceId": "PyNU0VrHdEBfX0Y0hWEB",
+    "videoId": "usPQQ222uFg",
+    "updatedAt": "2024-04-27T18:18:23.936Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "dust2-t-mid-2",
+    "sourceId": "0d4KDyofEukkKQRuKNYJ",
+    "videoId": "vnKH4ncvA4c",
+    "updatedAt": "2023-09-17T07:35:41.138Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "dust2-ct-a-1",
+    "sourceId": "dvUmrtlCUptKXtOBRC5m",
+    "videoId": "K8RCqmqWFi0",
+    "updatedAt": "2023-09-08T18:10:43.695Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "dust2-ct-a-2",
+    "sourceId": "TZ0KNufRHooRUt2gcV9s",
+    "videoId": "j9ytqZVyfAQ",
+    "updatedAt": "2023-09-06T02:34:44.034Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "dust2-ct-b-1",
+    "sourceId": "EmaBGfFyiTwVp5Wsw60w",
+    "videoId": "o9GHB0owaFo",
+    "updatedAt": "2023-09-07T02:22:29.836Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "dust2-ct-b-2",
+    "sourceId": "YbnoBMru3Uz7cvjxCCSK",
+    "videoId": "MdOoyTPGRSw",
+    "updatedAt": "2023-09-06T02:33:32.380Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "dust2-ct-mid-1",
+    "sourceId": "ZrzBlsUx1xV2ozU5jT7t",
+    "videoId": "yQk1BVm6imE",
+    "updatedAt": "2023-10-08T09:49:58.336Z",
+    "teamSide": "both"
+  },
+  {
+    "grenadeId": "dust2-ct-mid-2",
+    "sourceId": "N7UDkQ3F6hTBHCPEEp8f",
+    "videoId": "tuj2ewQJifc",
+    "updatedAt": "2023-09-07T02:25:24.286Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "anubis-t-a-1",
+    "sourceId": "VGusTpfDH84vRBP8APcw",
+    "videoId": "PIbGoT-IZmc",
+    "updatedAt": "2023-09-23T18:05:44.934Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "anubis-t-a-2",
+    "sourceId": "EkM9o6Gdi3vNFqkYi6Z8",
+    "videoId": "XVVBEjZOy-U",
+    "updatedAt": "2023-11-01T17:22:31.497Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "anubis-t-b-1",
+    "sourceId": "wqpGXE8aynGiCCk2ZfJs",
+    "videoId": "aAmw-3-m2Ug",
+    "updatedAt": "2023-09-07T23:06:13.472Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "anubis-t-b-2",
+    "sourceId": "z11Up0JcbrmplZGQ1mTI",
+    "videoId": "tt_aM9PZac4",
+    "updatedAt": "2023-09-06T16:56:56.385Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "anubis-t-mid-1",
+    "sourceId": "pJh59LxhViiRuNMqFP7u",
+    "videoId": "35efl7tF4Ak",
+    "updatedAt": "2023-09-14T04:19:30.246Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "anubis-t-mid-2",
+    "sourceId": "l4vpkdIkq90eLLLALGss",
+    "videoId": "yWp0eHTqwcE",
+    "updatedAt": "2023-10-24T05:21:13.703Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "anubis-ct-a-1",
+    "sourceId": "TMxxdgQvjnSL8iCYKROc",
+    "videoId": "ulFHm-uK9Ig",
+    "updatedAt": "2023-09-14T17:22:25.002Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "anubis-ct-a-2",
+    "sourceId": "g7DCwj2UDscFCVOHJocr",
+    "videoId": "0ZNLuk33J_0",
+    "updatedAt": "2023-09-08T18:06:20.582Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "anubis-ct-b-1",
+    "sourceId": "xnKiIiVZnEBajgiFfoa7",
+    "videoId": "JdO5nAOIqGw",
+    "updatedAt": "2023-09-12T19:22:52.696Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "anubis-ct-b-2",
+    "sourceId": "fnrcg4JDywZ7NXrTYWTN",
+    "videoId": "lV9Ty3zpy6Q",
+    "updatedAt": "2023-12-25T21:38:50.966Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "anubis-ct-mid-1",
+    "sourceId": "L1C18LnAQuucMb9rUMYi",
+    "videoId": "qIr0OLw3GPM",
+    "updatedAt": "2023-09-12T18:58:53.632Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "anubis-ct-mid-2",
+    "sourceId": "1ZLOrzzrSJ7COAz8xtRi",
+    "videoId": "Pxf0swD3678",
+    "updatedAt": "2023-09-19T05:01:26.875Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "overpass-t-a-1",
+    "sourceId": "GoqTF0UIjPjnz7SllN53",
+    "videoId": "uVfAYmmFZJw",
+    "updatedAt": "2024-01-18T08:29:46.593Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "overpass-t-a-2",
+    "sourceId": "4RczaoVfHz784oN9XCuP",
+    "videoId": "e2ImJk_pX3k",
+    "updatedAt": "2023-09-07T21:21:39.234Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "overpass-t-b-1",
+    "sourceId": "eHKczALfwHfTRmOZnM5L",
+    "videoId": "rDJJ8VraM4w",
+    "updatedAt": "2023-09-14T00:41:25.267Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "overpass-t-b-2",
+    "sourceId": "AAjX5s8X3vxsiqPLw0kk",
+    "videoId": "K8vs8QGF_1I",
+    "updatedAt": "2023-10-20T00:16:48.915Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "overpass-t-mid-1",
+    "sourceId": "05HhA831K6jY351QEioh",
+    "videoId": "765gSF0UD04",
+    "updatedAt": "2023-09-23T17:55:05.923Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "overpass-t-mid-2",
+    "sourceId": "kGXn2fxuiJx5ibZAjcCi",
+    "videoId": "7s36UUWMQyQ",
+    "updatedAt": "2023-09-07T17:25:53.640Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "overpass-ct-a-1",
+    "sourceId": "f0XThK2p1dmu65sxZVt6",
+    "videoId": "eK8UjwQrYxs",
+    "updatedAt": "2023-09-30T20:39:33.214Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "overpass-ct-a-2",
+    "sourceId": "VHTHN5CIiQeei1qVx7Bx",
+    "videoId": "uNxYBVKlpAs",
+    "updatedAt": "2023-09-14T00:40:22.731Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "overpass-ct-b-1",
+    "sourceId": "Fghd8DhVLSh6UL6ULTMv",
+    "videoId": "GKfKfcQJrZU",
+    "updatedAt": "2023-09-28T20:20:50.722Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "overpass-ct-b-2",
+    "sourceId": "3Hz1Ax3rkpk85tvWTXJV",
+    "videoId": "Znmv_zoFZFU",
+    "updatedAt": "2023-09-07T02:12:45.803Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "overpass-ct-mid-1",
+    "sourceId": "m1NG4T3xU8ZHNN0rh1qi",
+    "videoId": "QTSpHMZ7tfY",
+    "updatedAt": "2023-10-24T05:06:19.014Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "overpass-ct-mid-2",
+    "sourceId": "whZyMSfj3VeqpzvObrl7",
+    "videoId": "cJ6g-2HAlr8",
+    "updatedAt": "2023-10-24T05:05:14.907Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "nuke-t-a-1",
+    "sourceId": "qprKpnFZNHsBo9LrVQSg",
+    "videoId": "-o5d7rdS1eo",
+    "updatedAt": "2024-03-26T01:19:30.995Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "nuke-t-a-2",
+    "sourceId": "myLDclV3A5Em6NS0mUeN",
+    "videoId": "Lu_CgkRGT6o",
+    "updatedAt": "2023-09-16T21:11:16.530Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "nuke-t-b-1",
+    "sourceId": "JzzOprxNSCVELQeV3dCL",
+    "videoId": "u7RopuZKIV4",
+    "updatedAt": "2023-10-03T00:31:58.871Z",
+    "teamSide": "both"
+  },
+  {
+    "grenadeId": "nuke-t-b-2",
+    "sourceId": "3ikvVUfpxBzlC1sPDg6P",
+    "videoId": "u7RopuZKIV4",
+    "updatedAt": "2023-10-14T22:31:23.627Z",
+    "teamSide": "both"
+  },
+  {
+    "grenadeId": "nuke-t-mid-1",
+    "sourceId": "MaCU7LA5L6wmpqgwGG2Y",
+    "videoId": "nbwro25kZpQ",
+    "updatedAt": "2023-09-04T09:16:22.469Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "nuke-t-mid-2",
+    "sourceId": "8kcZTml8pSzsZcmCrv9L",
+    "videoId": "fzMqxcUU7tI",
+    "updatedAt": "2023-09-13T00:45:40.628Z",
+    "teamSide": "terrorist"
+  },
+  {
+    "grenadeId": "nuke-ct-a-1",
+    "sourceId": "rI6cYWQHIBZ9UF5uZ2CD",
+    "videoId": "yxnVRCZg7yI",
+    "updatedAt": "2024-04-23T08:45:04.171Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "nuke-ct-a-2",
+    "sourceId": "lwwzhAvqAaSejHQJ6E5z",
+    "videoId": "JPJfdLMqO34",
+    "updatedAt": "2023-11-11T02:31:52.412Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "nuke-ct-b-1",
+    "sourceId": "6ZkmUUNWi1oByjTan4xU",
+    "videoId": "QugMopT7glI",
+    "updatedAt": "2023-11-03T16:56:43.914Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "nuke-ct-b-2",
+    "sourceId": "iJhV1ENLJeYWLtfNO2OD",
+    "videoId": "HhYt8AgTNaM",
+    "updatedAt": "2023-10-03T00:32:17.469Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "nuke-ct-mid-1",
+    "sourceId": "AxNOaKZl66kXzhMOnst0",
+    "videoId": "x1rM6-VJXiM",
+    "updatedAt": "2023-09-29T17:23:18.198Z",
+    "teamSide": "counterTerrorist"
+  },
+  {
+    "grenadeId": "nuke-ct-mid-2",
+    "sourceId": "Jpv3YRpQNvZPU3Ngtimm",
+    "videoId": "jwAgP_XML3Q",
+    "updatedAt": "2023-09-07T02:18:06.090Z",
+    "teamSide": "counterTerrorist"
+  }
+]
