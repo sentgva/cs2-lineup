@@ -8,7 +8,7 @@ export interface BotStore {
   setMastered(userId: number, grenadeId: string, value: boolean): Promise<void>;
   deleteUserData(userId: number): Promise<void>;
 }
-type Button = { text: string; callback_data?: string; url?: string };
+type Button = { text: string; callback_data?: string; url?: string; web_app?: { url: string } };
 export type BotView = { text: string; reply_markup: { inline_keyboard: Button[][] }; link_preview_options?: { is_disabled: boolean; url?: string; prefer_large_media?: boolean } };
 export type TelegramCall = (method: string, payload: Record<string, unknown>) => Promise<unknown>;
 type TelegramMessage = { message_id: number; chat: { id: number; type: string }; from?: { id: number }; text?: string };
@@ -53,7 +53,7 @@ function findGrenade(id: string) {
 export function mapsView(appUrl?: string): BotView {
   const rows: Button[][] = maps.map((map) => [{ text: map.name, callback_data: `m:${map.id}` }]);
   rows.push([{ text: '⭐ Избранное', callback_data: 'favorites' }, { text: '🎯 Прогресс', callback_data: 'progress' }]);
-  if (appUrl && /^https:\/\//.test(appUrl)) rows.push([{ text: '↗ Открыть каталог', url: appUrl }]);
+  if (appUrl && /^https:\/\//.test(appUrl)) rows.push([{ text: '🎮 Открыть Mini App', web_app: { url: appUrl } }]);
   return view('<b>LINEUP / CS2</b>\n\nРаскидка начинается с плана.\nВыберите карту → сторону → зону. В каждой карточке — задача, порядок действий и видео броска.\n\n🗺 <b>5 карт · T / CT · A / B / мид</b>\nДля Nuke вместо обычного мида — улица.\n\nОбновления CS2 могут менять геометрию: перед матчем проверьте бросок на тренировочном сервере.', rows);
 }
 

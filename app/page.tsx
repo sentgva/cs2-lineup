@@ -4,6 +4,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Bookmark, Check, CheckCheck, ChevronRight, CircleHelp, Crosshair, ExternalLink, Flame, Layers3, Map, Menu, Play, Search, Send, Shield, CloudFog, Sparkles, Target, X, Zap } from 'lucide-react';
 import { maps, plans, type Grenade, type MapId, type Side, type Zone } from '../src/data/catalog';
 
+import { telegram } from '../src/lib/telegram-client';
+import { nativeVideos } from '../src/data/media';
+
 const typeNames = { smoke: 'Смок', flash: 'Флешка', molotov: 'Молотов', he: 'Граната' };
 const difficultyNames = { easy: 'Легко', medium: 'Средне', hard: 'Сложно' };
 const typeIcons = { smoke: CloudFog, flash: Zap, molotov: Flame, he: Target };
@@ -31,6 +34,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [notice, setNotice] = useState('');
+  const [isTelegram, setIsTelegram] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [syncReady, setSyncReady] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const currentMap = maps.find(map => map.id === mapId)!;
@@ -44,11 +50,45 @@ export default function Home() {
   const botUsername = process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || 'raskidkiotkocha_bot';
   const botLink = botUsername ? `https://t.me/${botUsername.replace(/^@/, '')}` : null;
 
-  useEffect(() => { setFavoriteIds(readIds('lineup-favorites')); setMasteredIds(readIds('lineup-mastered')); }, []);
+  useEffect(() => {
+    const app = telegram();
+    if (!app?.initData) { setFavoriteIds(readIds('lineup-favorites')); setMasteredIds(readIds('lineup-mastered')); setSyncReady(true); return; }
+    setIsTelegram(true);
+    document.documentElement.classList.add('telegram-app');
+    app.ready(); app.expand(); app.setHeaderColor('#101415'); app.setBackgroundColor('#101415');
+    app.disableVerticalSwipes?.();
+    let active = true;
+    fetch('/api/miniapp/state', { headers: { authorization: `tma ${app.initData}` } })
+      .then(async response => { const data = await response.json(); if (!response.ok) throw new Error(data.error); return data; })
+      .then(data => { if (active) { setFavoriteIds(data.favorites); setMasteredIds(data.mastered); setSyncReady(true); } })
+      .catch(() => { if (active) setNotice('Не удалось загрузить прогресс. Откройте Mini App заново.'); });
+    return () => { active = false; document.documentElement.classList.remove('telegram-app'); };
+  }, []);
+  useEffect(() => {
+    const app = telegram(); if (!app?.initData) return;
+    const back = () => { if (activeGrenade) setActiveGrenade(null); else if (helpOpen) setHelpOpen(false); else setMenuOpen(false); };
+    if (activeGrenade || helpOpen || menuOpen) app.BackButton.show(); else app.BackButton.hide();
+    app.BackButton.onClick(back);
+    return () => { app.BackButton.offClick(back); app.BackButton.hide(); };
+  }, [activeGrenade, helpOpen, menuOpen]);
   useEffect(() => { if (activeGrenade || helpOpen) { dialog.current?.showModal(); closeRef.current?.focus(); } else dialog.current?.close(); }, [activeGrenade, helpOpen]);
   useEffect(() => { if (!notice) return; const timeout = setTimeout(() => setNotice(''), 2600); return () => clearTimeout(timeout); }, [notice]);
 
-  function toggleSaved(id: string, kind: 'favorite' | 'mastered') {
+  async function toggleSaved(id: string, kind: 'favorite' | 'mastered') {
+    if (syncing || !syncReady) { setNotice('Прогресс ещё не загружен. Попробуйте открыть приложение заново.'); return; }
+    if (isTelegram) {
+      setSyncing(true);
+      try {
+        const ids = kind === 'favorite' ? favoriteIds : masteredIds;
+        const response = await fetch('/api/miniapp/state', { method: 'POST', headers: { 'content-type': 'application/json', authorization: `tma ${telegram()?.initData || ''}` }, body: JSON.stringify({ grenadeId: id, kind, value: !ids.includes(id) }) });
+        const data = await response.json(); if (!response.ok) throw new Error(data.error);
+        setFavoriteIds(data.favorites); setMasteredIds(data.mastered);
+        telegram()?.HapticFeedback?.notificationOccurred('success');
+        setNotice('Сохранено в вашем Telegram-аккаунте');
+      } catch { setNotice('Не удалось сохранить. Проверьте соединение и попробуйте ещё раз.'); }
+      finally { setSyncing(false); }
+      return;
+    }
     const ids = kind === 'favorite' ? favoriteIds : masteredIds;
     const next = ids.includes(id) ? ids.filter(item => item !== id) : [...ids, id];
     if (kind === 'favorite') setFavoriteIds(next); else setMasteredIds(next);
@@ -59,9 +99,10 @@ export default function Home() {
 
   function selectMap(next: MapId) { setMapId(next); setFavoritesOnly(false); setQuery(''); setMenuOpen(false); }
   function closeDialog() { setActiveGrenade(null); setHelpOpen(false); }
-  const activeVideoId = activeGrenade ? youtubeId(activeGrenade.videoUrl) : null;
+  const nativeVideo = activeGrenade ? nativeVideos[activeGrenade.id] : undefined;
+  const activeVideoId = activeGrenade && !nativeVideo ? youtubeId(activeGrenade.videoUrl) : null;
 
-  return <div className="app-shell">
+  return <div className={`app-shell ${isTelegram ? "in-telegram" : ""}`}>
     <aside className={`sidebar ${menuOpen ? 'is-open' : ''}`} aria-label="Навигация">
       <a className="wordmark" href="/" aria-label="LINEUP — главная"><span className="brand-icon"><Crosshair size={22} /></span>LINEUP<span className="brand-dot">.</span></a>
       <div className="sidebar-subtitle">ТВОЙ КАРМАННЫЙ ТРЕНЕР</div>
@@ -83,9 +124,9 @@ export default function Home() {
     {menuOpen && <button className="nav-overlay" aria-label="Закрыть меню" onClick={() => setMenuOpen(false)} />}
     <main>
       <header className="topbar"><div className="breadcrumb"><button className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Открыть меню"><Menu size={22} /></button><span>Плейбук</span><ChevronRight size={14} /><strong>{favoritesOnly ? 'Избранное' : currentMap.name}</strong></div><div className="topbar-right"><span className="topbar-caption"><span className="status-dot" />МЕНЬШЕ ХАОСА. БОЛЬШЕ КОНТРОЛЯ.</span>{botLink && <a className="telegram-button" href={botLink} target="_blank" rel="noreferrer"><Send size={15} />Открыть бота<ArrowUpRight size={14} /></a>}</div></header>
-      <div className="main-content">
+      <div className="main-content">{isTelegram && !syncReady && <p role="status" className="sync-status">Подключаем прогресс Telegram… Если сообщение не исчезает, закройте и откройте приложение заново.</p>}
         <section className="intro"><div className="eyebrow"><span />ГРАНАТЫ РЕШАЮТ РАУНДЫ</div><h1>Хорошая раскидка.<br /><span>Чистый выход.</span></h1><p>Нужная граната в нужный момент. Выбери карту,<br className="desktop-break" /> изучи бросок и забери преимущество.</p><div className="intro-stamp"><div className="stamp-crosshair"><Crosshair strokeWidth={1} /></div><span>PREPARE.<br />EXECUTE.<br /><b>REPEAT.</b></span></div></section>
-        {favoritesOnly ? <section className="favorites-banner"><div><div className="eyebrow">ТВОЯ КОЛЛЕКЦИЯ</div><h2>Всегда под рукой</h2><p>Сохранённые раскидки со всех карт. Избранное веб-версии хранится на этом устройстве.</p></div><Bookmark size={58} strokeWidth={1} /></section> : <>
+        {favoritesOnly ? <section className="favorites-banner"><div><div className="eyebrow">ТВОЯ КОЛЛЕКЦИЯ</div><h2>Всегда под рукой</h2><p>Сохранённые раскидки со всех карт. {isTelegram ? "Синхронизировано с вашим Telegram-аккаунтом." : "Избранное веб-версии хранится на этом устройстве."}</p></div><Bookmark size={58} strokeWidth={1} /></section> : <>
           <section className={`map-banner banner-${mapId}`} aria-label={`Карта ${currentMap.name}`}>
             <div className="map-art" aria-hidden="true"><div className="art-ring ring-outer" /><div className="art-ring ring-inner" /><div className="art-cross vertical" /><div className="art-cross horizontal" /><div className="art-route route-one" /><div className="art-route route-two" /><span className="art-site site-a">A</span><span className="art-site site-b">B</span><span className="art-coordinates">{mapShort[mapId]} / UTILITY OPERATIONS</span></div>
             <div className="map-banner-content"><div className="map-meta"><span className="map-meta-dot" />{mapPlaces[mapId]}<span className="meta-separator">/</span>5V5 · DEFUSAL</div><h2>{currentMap.name}<span>↗</span></h2><p>{currentMap.description}</p><div className="map-tags"><span><Layers3 size={13} />{plans.filter(plan => plan.mapId === mapId).length} планов</span><span><Play size={12} />Видео бросков</span><span>T + CT</span></div></div>
@@ -107,7 +148,7 @@ export default function Home() {
     </main>
     <div className={`toast ${notice ? 'visible' : ''}`} role="status"><Check size={15} />{notice}</div>
     <dialog ref={dialog} className="lineup-dialog" onCancel={event => { event.preventDefault(); closeDialog(); }} onClick={event => { if (event.target === event.currentTarget) closeDialog(); }}>
-      <div className="dialog-inner"><button className="dialog-close" ref={closeRef} onClick={closeDialog} aria-label="Закрыть"><X size={20} /></button>{activeGrenade ? <><div className="eyebrow">{typeNames[activeGrenade.type]} / {activeGrenade.technique}</div><h2>{activeGrenade.title}</h2><div className="dialog-route">{activeGrenade.from}<ArrowRight size={16} />{activeGrenade.to}</div>{activeVideoId ? <div className="video-container"><iframe title={`Видео: ${activeGrenade.title}`} src={`https://www.youtube-nocookie.com/embed/${activeVideoId}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /></div> : /\.(mp4|webm)(\?|$)/i.test(activeGrenade.videoUrl) ? <video className="inline-video" src={activeGrenade.videoUrl} controls playsInline preload="metadata" /> : <a className="external-video" href={activeGrenade.videoUrl} target="_blank" rel="noreferrer"><Play size={32} /><span>Открыть видео броска<small>Видео откроется на сайте источника</small></span><ArrowUpRight size={20} /></a>}<ol className="dialog-steps">{activeGrenade.steps.map((step, index) => <li key={index}><span>{index + 1}</span>{step}</li>)}</ol><div className="dialog-source"><span>Источник: <a href={activeGrenade.sourceUrl} target="_blank" rel="noreferrer">{activeGrenade.sourceName}<ExternalLink size={12} /></a></span><a href={activeGrenade.videoUrl} target="_blank" rel="noreferrer">Открыть оригинал<ArrowUpRight size={13} /></a></div><div className="dialog-actions"><button className={`save-action ${favoriteIds.includes(activeGrenade.id) ? 'is-saved' : ''}`} onClick={() => toggleSaved(activeGrenade.id, 'favorite')}><Bookmark size={16} />{favoriteIds.includes(activeGrenade.id) ? 'В избранном' : 'В избранное'}</button><button className={`save-action ${masteredIds.includes(activeGrenade.id) ? 'is-saved' : ''}`} onClick={() => toggleSaved(activeGrenade.id, 'mastered')}><Check size={16} />{masteredIds.includes(activeGrenade.id) ? 'Отработано' : 'Отметить отработано'}</button></div><p className="local-note">Отметки веб-версии сохраняются только на этом устройстве.</p></> : <><div className="eyebrow">ЗНАЙ СВОЙ ИНСТРУМЕНТ</div><h2>Пара минут до хорошего броска</h2><div className="help-content"><h3>Карта → сторона → зона</h3><p>Выбери карту и сторону T или CT, затем плент A, B или мид. На Nuke центральный контроль — это улица. В каждом разделе есть план и карточки бросков с видео.</p><h3>Смотри, повторяй, отмечай</h3><p>Открой карточку, посмотри видео и повтори бросок на тренировочном сервере. Точные ориентиры сверяй с видео. Иллюстрация в шапке декоративная и не заменяет радар карты.</p><h3>Избранное и прогресс</h3><p>На сайте они хранятся в браузере этого устройства. В Telegram избранное и прогресс привязаны к аккаунту и хранятся отдельно. Очистка данных браузера удалит локальные отметки.</p><h3>Видео и актуальность</h3><p>У каждой раскидки указан исходный материал. Видео принадлежат своим авторам. Каталог — учебная подборка, а не гарантия работы броска на текущем патче: перед матчем проверь его в игре.</p>{botLink && <a className="help-bot-link" href={botLink} target="_blank" rel="noreferrer"><Send size={16} />Открыть Telegram-бота<ArrowUpRight size={14} /></a>}</div></> }</div>
+      <div className="dialog-inner"><button className="dialog-close" ref={closeRef} onClick={closeDialog} aria-label="Закрыть"><X size={20} /></button>{activeGrenade ? <><div className="eyebrow">{typeNames[activeGrenade.type]} / {activeGrenade.technique}</div><h2>{activeGrenade.title}</h2><div className="dialog-route">{activeGrenade.from}<ArrowRight size={16} />{activeGrenade.to}</div>{nativeVideo ? <video key={nativeVideo} className="inline-video" src={nativeVideo} controls playsInline preload="metadata" /> : activeVideoId ? <div className="video-container"><iframe title={`Видео: ${activeGrenade.title}`} src={`https://www.youtube-nocookie.com/embed/${activeVideoId}`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /></div> : /\.(mp4|webm)(\?|$)/i.test(activeGrenade.videoUrl) ? <video className="inline-video" src={activeGrenade.videoUrl} controls playsInline preload="metadata" /> : <a className="external-video" href={activeGrenade.videoUrl} target="_blank" rel="noreferrer"><Play size={32} /><span>Открыть видео броска<small>Видео откроется на сайте источника</small></span><ArrowUpRight size={20} /></a>}<ol className="dialog-steps">{activeGrenade.steps.map((step, index) => <li key={index}><span>{index + 1}</span>{step}</li>)}</ol><div className="dialog-source"><span>Источник: <a href={activeGrenade.sourceUrl} target="_blank" rel="noreferrer">{activeGrenade.sourceName}<ExternalLink size={12} /></a></span><a href={activeGrenade.videoUrl} target="_blank" rel="noreferrer">Открыть оригинал<ArrowUpRight size={13} /></a></div><div className="dialog-actions"><button className={`save-action ${favoriteIds.includes(activeGrenade.id) ? 'is-saved' : ''}`} onClick={() => toggleSaved(activeGrenade.id, 'favorite')}><Bookmark size={16} />{favoriteIds.includes(activeGrenade.id) ? 'В избранном' : 'В избранное'}</button><button className={`save-action ${masteredIds.includes(activeGrenade.id) ? 'is-saved' : ''}`} onClick={() => toggleSaved(activeGrenade.id, 'mastered')}><Check size={16} />{masteredIds.includes(activeGrenade.id) ? 'Отработано' : 'Отметить отработано'}</button></div><p className="local-note">{isTelegram ? "Избранное и прогресс синхронизируются с ботом." : "Отметки веб-версии сохраняются только на этом устройстве."}</p></> : <><div className="eyebrow">ЗНАЙ СВОЙ ИНСТРУМЕНТ</div><h2>Пара минут до хорошего броска</h2><div className="help-content"><h3>Карта → сторона → зона</h3><p>Выбери карту и сторону T или CT, затем плент A, B или мид. На Nuke центральный контроль — это улица. В каждом разделе есть план и карточки бросков с видео.</p><h3>Смотри, повторяй, отмечай</h3><p>Открой карточку, посмотри видео и повтори бросок на тренировочном сервере. Точные ориентиры сверяй с видео. Иллюстрация в шапке декоративная и не заменяет радар карты.</p><h3>Избранное и прогресс</h3><p>При запуске через Mini App отметки синхронизируются с вашим Telegram-аккаунтом. При открытии в обычном браузере они сохраняются на этом устройстве. Очистка данных браузера удалит локальные отметки.</p><h3>Видео и актуальность</h3><p>У каждой раскидки указан исходный материал. Видео принадлежат своим авторам. Каталог — учебная подборка, а не гарантия работы броска на текущем патче: перед матчем проверь его в игре.</p>{botLink && <a className="help-bot-link" href={botLink} target="_blank" rel="noreferrer"><Send size={16} />Открыть Telegram-бота<ArrowUpRight size={14} /></a>}</div></> }</div>
     </dialog>
   </div>;
 }

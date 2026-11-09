@@ -27,6 +27,7 @@ async function telegram(method, body = {}) {
 }
 try {
   const me = await telegram('getMe');
+  await telegram('setChatMenuButton', { menu_button: { type: 'web_app', text: 'Раскидки', web_app: { url: parsed.origin } } });
   await telegram('setMyCommands', { commands: [
     { command: 'start', description: 'Карты и планы раскидок' },
     { command: 'maps', description: 'Выбрать карту' },
